@@ -33,6 +33,7 @@ services:
     labels:
       - "tsbridge.enable=true"
       - "tsbridge.services.port=8317"
+      - "tsbridge.service.listen_addr=:8317"
     pull_policy: always
     build:
       context: .
