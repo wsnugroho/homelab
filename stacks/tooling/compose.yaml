@@ -1,0 +1,38 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    labels:
+      - "tsbridge.enable=true"
+      - "tsbridge.services.port=3000"
+    ports:
+      - 3000:3000
+    volumes:
+      - homepage-config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: gethomepage.dev
+    networks:
+      - tsbridge
+    restart: unless-stopped
+
+  actualbudget:
+    image: docker.io/actualbudget/actual-server:latest
+    labels:
+      - "tsbridge.enable=true"
+      - "tsbridge.services.port=5006"
+    ports:
+      - 5006:5006
+    volumes:
+      - actualbudget-data:/data
+    networks:
+      - tsbridge
+    restart: unless-stopped
+
+volumes:
+  homepage-config: 
+  actualbudget-data: 
+
+networks:
+  tsbridge:
+    external: true
+
