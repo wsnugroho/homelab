@@ -3,7 +3,7 @@ services:
     image: qbittorrentofficial/qbittorrent-nox:latest
     labels:
       - "tsbridge.enable=true"
-      - "tsbridge.service.name=qbittorrent"
+      - "tsbridge.services.name=qbittorrent"
       - "tsbridge.services.port=8080"
     read_only: true
     stop_grace_period: 30m
