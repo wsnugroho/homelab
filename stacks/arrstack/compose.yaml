@@ -29,8 +29,7 @@ volumes:
     driver_opts:
       type: nfs
       o: "addr=100.95.209.64,rw,nfsvers=4"
-      device: ":/mnt/tank/media"
-
+      device: ":/media"
 
 networks:
   tsbridge:
