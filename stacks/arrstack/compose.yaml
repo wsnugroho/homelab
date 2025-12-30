@@ -16,8 +16,6 @@ services:
       - PUID=3000
       - PGID=3000
       - QBT_LEGAL_NOTICE=confirm
-      - QBT_TORRENTING_PORT=6881
-      - QBT_WEBUI_PORT=8080
     networks:
       - tsbridge
     restart: unless-stopped
@@ -28,7 +26,7 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=100.95.209.64,rw,vers=3,hard,intr,noatime,nodiratime,async
+      o: "addr=100.95.209.64,rw,nfsvers=4,hard,noatime,nodiratime,async"
       device: ":/mnt/tank/media"
 
 networks:
