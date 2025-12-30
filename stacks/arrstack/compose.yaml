@@ -28,8 +28,8 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: "addr=100.95.209.64,rw,nfsvers=4"
-      device: ":/media"
+      o: addr=100.95.209.64,rw,vers=3,hard,intr,noatime,nodiratime,async
+      device: ":/mnt/tank/media"
 
 networks:
   tsbridge:
