@@ -23,11 +23,11 @@ services:
 volumes:
   qbittorrent-config: 
   qbittorrent-downloads: 
-  #   driver: local
-  #   driver_opts:
-  #     type: nfs
-  #     o: "addr=100.95.209.64,nolock,soft,rw"
-  #     device: ":/mnt/HDD1024/data/torrents"
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=100.95.209.64,rw,nfsvers=4"
+      device: ":/mnt/tank/media"
 
 
 networks:
