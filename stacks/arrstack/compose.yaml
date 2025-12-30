@@ -1,7 +1,6 @@
 services:
   qbittorrent-nox:
     image: qbittorrentofficial/qbittorrent-nox:latest
-    user: "3000:3000"
     labels:
       - "tsbridge.enabled=true"
       - "tsbridge.services.name=qbittorrent"
@@ -14,6 +13,8 @@ services:
       - qbittorrent-config:/config
       - qbittorrent-downloads:/downloads
     environment:
+      - PUID=3000
+      - PGID=3000
       - QBT_LEGAL_NOTICE=confirm
       - QBT_TORRENTING_PORT=6881
       - QBT_WEBUI_PORT=8080
