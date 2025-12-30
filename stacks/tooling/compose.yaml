@@ -3,15 +3,15 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     labels:
       - "tsbridge.enabled=true"
-      - "tsbridge.services.name=homepage"
-      - "tsbridge.services.port=3000"
+      - "tsbridge.service.name=homepage"
+      - "tsbridge.service.port=3000"
     ports:
       - 3000:3000
     volumes:
       - homepage-config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: gethomepage.dev
+      HOMEPAGE_ALLOWED_HOSTS: "*"
     networks:
       - tsbridge
     restart: unless-stopped
@@ -20,8 +20,8 @@ services:
     image: docker.io/actualbudget/actual-server:latest
     labels:
       - "tsbridge.enabled=true"
-      - "tsbridge.services.name=actualbudget"
-      - "tsbridge.services.port=5006"
+      - "tsbridge.service.name=actualbudget"
+      - "tsbridge.service.port=5006"
     ports:
       - 5006:5006
     volumes:
@@ -34,18 +34,8 @@ services:
     image: eceasy/cli-proxy-api:latest
     labels:
       - "tsbridge.enabled=true"
-      - "tsbridge.services.name=cliproxyapi"
-      - "tsbridge.services.port=8317"
-    pull_policy: always
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        VERSION: ${VERSION:-dev}
-        COMMIT: ${COMMIT:-none}
-        BUILD_DATE: ${BUILD_DATE:-unknown}
-    environment:
-      DEPLOY: ${DEPLOY:-}
+      - "tsbridge.service.name=cliproxyapi"
+      - "tsbridge.service.port=8317"
     ports:
       - "8317:8317"
       - "8085:8085"
