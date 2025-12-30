@@ -3,7 +3,7 @@ services:
     image: qbittorrentofficial/qbittorrent-nox:latest
     labels:
       - "tsbridge.enabled=true"
-      - "tsbridge.service.name=qbittorrent"
+      - "tsbridge.service.name=qbittorrent-media"
       - "tsbridge.service.port=8080"
     ports:
       - 6881:6881/tcp
