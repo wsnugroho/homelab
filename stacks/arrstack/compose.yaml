@@ -1,6 +1,7 @@
 services:
   qbittorrent-nox:
     image: qbittorrentofficial/qbittorrent-nox:latest
+    user: "3000:3000"
     labels:
       - "tsbridge.enabled=true"
       - "tsbridge.services.name=qbittorrent"
