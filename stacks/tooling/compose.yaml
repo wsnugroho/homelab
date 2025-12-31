@@ -56,17 +56,13 @@ services:
       - "tsbridge.enabled=true"
       - "tsbridge.service.name=qbittorrent"
       - "tsbridge.service.port=8080"
-    ports:
-      - 6881:6881/tcp
-      - 6881:6881/udp
-      - 8080:8080/tcp
-    volumes:
-      - qbittorrent-config:/config
-      - qbittorrent-downloads:/downloads
     environment:
       - PUID=3000
       - PGID=3000
       - QBT_LEGAL_NOTICE=confirm
+    volumes:
+      - qbittorrent-config:/config
+      - qbittorrent-downloads:/downloads
     networks:
       - tsbridge
     restart: unless-stopped
