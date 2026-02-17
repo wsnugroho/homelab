@@ -78,7 +78,7 @@ services:
       - TZ=Asia/Jakarta
     volumes:
       - decyconf:/app
-      - decydata:/mnt:rshared
+      - /opt/debrid:/mnt:rshared
     restart: unless-stopped
 
 volumes:
@@ -90,7 +90,6 @@ volumes:
   qbitdown:
   prowconf:
   decyconf:
-  decydata:
 
 networks:
   tsbridge:
