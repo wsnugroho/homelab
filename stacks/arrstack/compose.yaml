@@ -4,23 +4,93 @@ services:
     labels:
       - "tsbridge.enabled=true"
       - "tsbridge.service.name=jellyfin"
-      - "tsbridge.service.port=8096" 
+      - "tsbridge.service.port=8096"
+    ports:
+      - 8096:8096
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Asia/Jakarta
     volumes:
-      - jellyfin-config:/config
-      - jellyfin-data:/data
-    ports:
-      - 8096:8096
+      - jellyconf:/config
+      - jellydata:/data
     networks:
       - tsbridge
     restart: unless-stopped
+  
+  whisparr:
+    image: ghcr.io/hotio/whisparr
+    ports:
+      - "6969:6969"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Asia/Jakarta
+      - WEBUI_PORTS=6969/tcp 
+    volumes:
+      - whispconf:/config
+      - whispdata:/data
+    restart: unless-stopped
+  
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Jakarta
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
+    volumes:
+      - qbitdata:/config
+      - qbitdown:/downloads
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Jakarta
+    volumes:
+      - prowconf:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  decypharr:
+    image: decypharr/decypharr:latest
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse:rwm
+    security_opt:
+      - apparmor:unconfined
+    ports:
+      - 8282:8282
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Jakarta
+    volumes:
+      - decyconf:/app
+      - decydata:/mnt:rshared
+    restart: unless-stopped
 
 volumes:
-  jellyfin-config:
-  jellyfin-data:
+  jellyconf:
+  jellydata:
+  whispconf:
+  whispdata:
+  qbitdata:
+  qbitdown:
+  prowconf:
+  decyconf:
+  decydata:
 
 networks:
   tsbridge:
