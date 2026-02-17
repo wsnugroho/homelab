@@ -1,10 +1,6 @@
 services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
-    labels:
-      - "tsbridge.enabled=true"
-      - "tsbridge.service.name=jellyfin"
-      - "tsbridge.service.port=8096"
     ports:
       - 8096:8096
     environment:
@@ -16,6 +12,26 @@ services:
       - jellydata:/data
     networks:
       - tsbridge
+    restart: unless-stopped
+  
+  stash:
+    image: stashapp/stash:latest
+    ports:
+      - "9999:9999"
+    environment:
+      - STASH_STASH=/data/
+      - STASH_GENERATED=/generated/
+      - STASH_METADATA=/metadata/
+      - STASH_CACHE=/cache/
+      - STASH_PORT=9999
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/apps/stash/config:/root/.stash
+      - /opt/apps/stash/data:/data
+      - /opt/apps/stash/metadata:/metadata
+      - /opt/apps/stash/cache:/cache
+      - /opt/apps/stash/blobs:/blobs
+      - /opt/apps/stash/generated:/generated
     restart: unless-stopped
   
   whisparr:
