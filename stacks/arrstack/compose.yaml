@@ -63,7 +63,7 @@ services:
     restart: unless-stopped
 
   decypharr:
-    image: decypharr/decypharr:latest
+    image: cy01/blackhole:latest
     cap_add:
       - SYS_ADMIN
     devices:
