@@ -2,7 +2,7 @@ services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     labels:
-      - "tsbridge.enabled=true"
+      - "tsbridge.enable=true"
       - "tsbridge.service.name=jellyfin"
       - "tsbridge.service.port=8096" 
     environment:
