@@ -1,33 +1,24 @@
 services:
-  qbittorrent-nox:
-    image: qbittorrentofficial/qbittorrent-nox:latest
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
     labels:
       - "tsbridge.enabled=true"
-      - "tsbridge.service.name=qbittorrent-media"
-      - "tsbridge.service.port=8080"
-    ports:
-      - 6881:6881/tcp
-      - 6881:6881/udp
-      - 8080:8080/tcp
-    volumes:
-      - qbittorrent-config:/config
-      - qbittorrent-downloads:/downloads
+      - "tsbridge.service.name=jellyfin"
+      - "tsbridge.service.port=8096" 
     environment:
-      - PUID=3000
-      - PGID=3000
-      - QBT_LEGAL_NOTICE=confirm
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Jakarta
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-data:/data
     networks:
       - tsbridge
     restart: unless-stopped
 
 volumes:
-  qbittorrent-config: 
-  qbittorrent-downloads: 
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=100.95.209.64,rw,nfsvers=4,hard,noatime,nodiratime,async"
-      device: ":/mnt/tank/media"
+  jellyfin-config:
+  jellyfin-data:
 
 networks:
   tsbridge:
