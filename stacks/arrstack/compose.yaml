@@ -95,10 +95,6 @@ services:
       - apparmor:unconfined
     ports:
       - 8282:8282
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Asia/Jakarta
     volumes:
       - decyconf:/app
       - /mnt/media:/mnt:rshared
