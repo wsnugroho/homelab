@@ -44,7 +44,7 @@ services:
       - WEBUI_PORTS=6969/tcp 
     volumes:
       - whispconf:/config
-      - /mnt/media/adult:/data
+      - /mnt/data:/data
     restart: unless-stopped
   
   qbittorrent:
