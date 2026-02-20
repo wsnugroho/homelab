@@ -106,8 +106,3 @@ volumes:
   qbitdown:
   prowconf:
   decyconf:
-
-networks:
-  tsbridge:
-    external: true
-
