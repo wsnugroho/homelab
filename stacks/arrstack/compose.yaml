@@ -29,7 +29,7 @@ services:
       - /opt/apps/stash/cache:/cache
       - /opt/apps/stash/blobs:/blobs
       - /opt/apps/stash/generated:/generated
-      - /mnt/media/adult:/data
+      - /mnt/data:/data
     restart: unless-stopped
   
   whisparr:
