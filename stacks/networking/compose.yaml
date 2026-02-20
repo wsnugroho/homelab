@@ -1,19 +1,19 @@
 services:
-  tailscale:
-    image: tailscale/tailscale:latest
-    network_mode: host
-    environment:
-      - TS_AUTHKEY=${TS_OAUTH_CLIENT_ID}
-      - TS_EXTRA_ARGS=--advertise-tags=tag:server
-      - TS_STATE_DIR=/var/lib/tailscale
-      - TS_USERSPACE=false
-    volumes:
-      - tailscale-state:/var/lib/tailscale
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    cap_add:
-      - net_admin
-    restart: unless-stopped
+  # tailscale:
+  #   image: tailscale/tailscale:latest
+  #   network_mode: host
+  #   environment:
+  #     - TS_AUTHKEY=${TS_OAUTH_CLIENT_ID}
+  #     - TS_EXTRA_ARGS=--advertise-tags=tag:server
+  #     - TS_STATE_DIR=/var/lib/tailscale
+  #     - TS_USERSPACE=false
+  #   volumes:
+  #     - tailscale-state:/var/lib/tailscale
+  #   devices:
+  #     - /dev/net/tun:/dev/net/tun
+  #   cap_add:
+  #     - net_admin
+  #   restart: unless-stopped
 
   tsbridge:
     image: ghcr.io/jtdowney/tsbridge:latest
