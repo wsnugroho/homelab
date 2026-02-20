@@ -15,7 +15,7 @@ services:
   stash:
     image: stashapp/stash:latest
     ports:
-      - "9999:9999"
+      - 9999:9999
     environment:
       - STASH_STASH=/data/
       - STASH_GENERATED=/generated/
@@ -101,7 +101,7 @@ services:
       - TZ=Asia/Jakarta
     volumes:
       - decyconf:/app
-      - /opt/debrid:/mnt:rshared
+      - /mnt/media:/mnt:rshared
     restart: unless-stopped
 
 volumes:
