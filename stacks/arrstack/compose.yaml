@@ -10,8 +10,6 @@ services:
     volumes:
       - jellyconf:/config
       - jellydata:/data
-    networks:
-      - tsbridge
     restart: unless-stopped
   
   stash:
