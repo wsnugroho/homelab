@@ -29,7 +29,7 @@ services:
       - /opt/apps/stash/cache:/cache
       - /opt/apps/stash/blobs:/blobs
       - /opt/apps/stash/generated:/generated
-      - /mnt/data:/data
+      - /mnt/media:/data
     restart: unless-stopped
   
   whisparr:
@@ -44,7 +44,7 @@ services:
       - WEBUI_PORTS=6969/tcp 
     volumes:
       - whispconf:/config
-      - /mnt/data:/data
+      - /mnt/media:/data
     restart: unless-stopped
   
   qbittorrent:
