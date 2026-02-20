@@ -76,6 +76,15 @@ services:
       - 9696:9696
     restart: unless-stopped
 
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    environment:
+      - LOG_LEVEL=info
+      - TZ=Asia/Jakarta
+    ports:
+      - 8191:8191
+    restart: unless-stopped
+
   decypharr:
     image: cy01/blackhole:latest
     cap_add:
