@@ -13,6 +13,17 @@ services:
       - /data/media:/data
     restart: unless-stopped
   
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Asia/Jakarta
+    volumes:
+      - seerconf:/app/config
+    ports:
+      - 5055:5055
+    restart: unless-stopped
+  
   stash:
     image: stashapp/stash:latest
     ports:
@@ -34,10 +45,36 @@ services:
       - /mnt:/mnt:rshared
     restart: unless-stopped
   
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Jakarta
+    volumes:
+      - radarrconf:/config
+      - /data:/data
+      - /mnt:/mnt:rshared
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+  
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Jakarta
+    volumes:
+      - sonarrconf:/config
+      - /data:/data
+      - /mnt:/mnt:rshared
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+  
   whisparr:
     image: ghcr.io/hotio/whisparr:v3
-    ports:
-      - 6969:6969
     environment:
       - PUID=1000
       - PGID=1000
@@ -48,6 +85,22 @@ services:
       - whispconf:/config
       - /data:/data
       - /mnt:/mnt:rshared
+    ports:
+      - 6969:6969
+    restart: unless-stopped
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Jakarta
+    volumes:
+      - bazarrconf:/config
+      - /mnt:/mnt:rshared
+      - /data/media:/data/media
+    ports:
+      - 6767:6767
     restart: unless-stopped
 
   prowlarr:
@@ -100,3 +153,7 @@ volumes:
   whispdata:
   prowconf:
   decyconf:
+  radarrconf:
+  sonarrconf:
+  bazarrconf:
+  seerconf:
