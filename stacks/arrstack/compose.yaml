@@ -9,6 +9,7 @@ services:
       - TZ=Asia/Jakarta
     volumes:
       - jellyconf:/config
+      - /mnt:/mnt:rshared
       - /data/media:/data
     restart: unless-stopped
   
@@ -30,6 +31,7 @@ services:
       - /opt/apps/stash/blobs:/blobs
       - /opt/apps/stash/generated:/generated
       - /data/media:/data
+      - /mnt:/mnt:rshared
     restart: unless-stopped
   
   whisparr:
