@@ -9,7 +9,7 @@ services:
       - TZ=Asia/Jakarta
     volumes:
       - jellyconf:/config
-      - /mnt/media:/data
+      - /data/media:/data
     restart: unless-stopped
   
   stash:
@@ -29,7 +29,7 @@ services:
       - /opt/apps/stash/cache:/cache
       - /opt/apps/stash/blobs:/blobs
       - /opt/apps/stash/generated:/generated
-      - /mnt/media:/data
+      - /data/media:/data
     restart: unless-stopped
   
   whisparr:
@@ -44,14 +44,14 @@ services:
       - WEBUI_PORTS=6969/tcp 
     volumes:
       - whispconf:/config
-      - /mnt:/data
+      - /data:/data
     restart: unless-stopped
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     dns:
-      - 9.9.9.9
       - 1.1.1.1
+      - 9.9.9.9
     environment:
       - PUID=1000
       - PGID=1000
@@ -65,8 +65,8 @@ services:
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     dns:
-      - 9.9.9.9
       - 1.1.1.1
+      - 9.9.9.9
     environment:
       - LOG_LEVEL=info
       - TZ=Asia/Jakarta
@@ -86,7 +86,7 @@ services:
       - 8282:8282
     volumes:
       - decyconf:/app
-      - /mnt/debrid:/data/debrid:rshared
+      - /data/debrid:/data/debrid
     restart: unless-stopped
 
 volumes:
