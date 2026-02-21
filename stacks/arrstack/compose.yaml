@@ -9,7 +9,7 @@ services:
       - TZ=Asia/Jakarta
     volumes:
       - jellyconf:/config
-      - jellydata:/data
+      - /mnt/media:/data
     restart: unless-stopped
   
   stash:
@@ -44,24 +44,7 @@ services:
       - WEBUI_PORTS=6969/tcp 
     volumes:
       - whispconf:/config
-      - /mnt/media:/data
-    restart: unless-stopped
-  
-  qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:latest
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Asia/Jakarta
-      - WEBUI_PORT=8080
-      - TORRENTING_PORT=6881
-    volumes:
-      - qbitdata:/config
-      - qbitdown:/downloads
-    ports:
-      - 8080:8080
-      - 6881:6881
-      - 6881:6881/udp
+      - /mnt:/data
     restart: unless-stopped
 
   prowlarr:
@@ -97,7 +80,7 @@ services:
       - 8282:8282
     volumes:
       - decyconf:/app
-      - /mnt/media:/mnt:rshared
+      - /mnt/debrid:/data/debrid:rshared
     restart: unless-stopped
 
 volumes:
@@ -105,7 +88,5 @@ volumes:
   jellydata:
   whispconf:
   whispdata:
-  qbitdata:
-  qbitdown:
   prowconf:
   decyconf:
