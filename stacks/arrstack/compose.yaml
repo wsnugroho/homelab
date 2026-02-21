@@ -45,6 +45,7 @@ services:
     volumes:
       - whispconf:/config
       - /data:/data
+      - /mnt:/mnt:rshared
     restart: unless-stopped
 
   prowlarr:
