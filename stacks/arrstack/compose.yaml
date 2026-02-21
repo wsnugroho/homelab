@@ -86,6 +86,7 @@ services:
       - 8282:8282
     volumes:
       - decyconf:/app
+      - /mnt:/mnt:rshared
       - /data/debrid:/data/debrid
     restart: unless-stopped
 
