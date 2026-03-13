@@ -89,6 +89,18 @@ services:
       - 6969:6969
     restart: unless-stopped
 
+  profilarr:
+    image: ghcr.io/dictionarry-hub/profilarr:latest
+    ports:
+      - '6868:6868'
+    volumes:
+      - profilconf:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Jakarta
+    restart: unless-stopped
+
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     environment:
@@ -157,3 +169,4 @@ volumes:
   sonarrconf:
   bazarrconf:
   seerconf:
+  profilconf:
