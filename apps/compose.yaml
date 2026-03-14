@@ -1,5 +1,6 @@
 services:
   homepage:
+    container_name: homepage
     image: ghcr.io/gethomepage/homepage:latest
     ports:
       - "3000:3000"
@@ -11,6 +12,7 @@ services:
     restart: unless-stopped
 
   actualbudget:
+    container_name: actualbudget
     image: docker.io/actualbudget/actual-server:latest
     ports:
       - "5006:5006"
