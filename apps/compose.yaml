@@ -1,0 +1,19 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ${APPS_DATA_ROOT:-/opt/homelab/apps}/homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: "*"
+    restart: unless-stopped
+
+  actualbudget:
+    image: docker.io/actualbudget/actual-server:latest
+    ports:
+      - "5006:5006"
+    volumes:
+      - ${APPS_DATA_ROOT:-/opt/homelab/apps}/actualbudget:/data
+    restart: unless-stopped

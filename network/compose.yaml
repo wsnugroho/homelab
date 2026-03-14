@@ -1,0 +1,11 @@
+services:
+  adguardhome:
+    image: adguard/adguardhome:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "3000:3000/tcp"
+    volumes:
+      - ${NETWORK_DATA_ROOT:-/opt/homelab/network}/adguardhome/work:/opt/adguardhome/work
+      - ${NETWORK_DATA_ROOT:-/opt/homelab/network}/adguardhome/conf:/opt/adguardhome/conf
+    restart: unless-stopped

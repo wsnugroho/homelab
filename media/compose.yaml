@@ -1,0 +1,134 @@
+x-media-env: &media-env
+  PUID: ${PUID:-1000}
+  PGID: ${PGID:-1000}
+  TZ: ${TZ:-Asia/Jakarta}
+
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    ports:
+      - "8096:8096"
+    environment: *media-env
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/jellyfin:/config
+      - /mnt:/mnt:rshared
+      - /data/media:/data
+    restart: unless-stopped
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    environment: *media-env
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/jellyseerr:/app/config
+    ports:
+      - "5055:5055"
+    restart: unless-stopped
+
+  stash:
+    image: stashapp/stash:latest
+    ports:
+      - "9999:9999"
+    environment:
+      STASH_STASH: /data/
+      STASH_GENERATED: /generated/
+      STASH_METADATA: /metadata/
+      STASH_CACHE: /cache/
+      STASH_PORT: "9999"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/stash/config:/root/.stash
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/stash/metadata:/metadata
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/stash/cache:/cache
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/stash/blobs:/blobs
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/stash/generated:/generated
+      - /data/media:/data
+      - /mnt:/mnt:rshared
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    environment: *media-env
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/radarr:/config
+      - /data:/data
+      - /mnt:/mnt:rshared
+    ports:
+      - "7878:7878"
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    environment: *media-env
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/sonarr:/config
+      - /data:/data
+      - /mnt:/mnt:rshared
+    ports:
+      - "8989:8989"
+    restart: unless-stopped
+
+  whisparr:
+    image: ghcr.io/hotio/whisparr:v3
+    environment: *media-env
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/whisparr:/config
+      - /data:/data
+      - /mnt:/mnt:rshared
+    ports:
+      - "6969:6969"
+    restart: unless-stopped
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    environment: *media-env
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/bazarr:/config
+      - /mnt:/mnt:rshared
+      - /data/media:/data/media
+    ports:
+      - "6767:6767"
+    restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    environment: *media-env
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/prowlarr:/config
+    ports:
+      - "9696:9696"
+    restart: unless-stopped
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    environment: *media-env
+    ports:
+      - "8191:8191"
+    restart: unless-stopped
+
+  profilarr:
+    image: santiagosayshey/profilarr:latest
+    environment: *media-env
+    ports:
+      - "6868:6868"
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/profilarr:/config
+    restart: unless-stopped
+
+  decypharr:
+    # Use this images for torbox permalink support until MR is merged
+    # https://github.com/sirrobot01/decypharr/pull/183
+    image: ghcr.io/akhanalcs/decypharr:latest
+    # image: cy01/blackhole:latest
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse:rwm
+    security_opt:
+      - apparmor:unconfined
+    ports:
+      - "8282:8282"
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/decypharr:/app
+      - /mnt:/mnt:rshared
+      - /data/debrid:/data/debrid
+    restart: unless-stopped
