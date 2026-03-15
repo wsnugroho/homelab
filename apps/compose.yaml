@@ -2,6 +2,12 @@ services:
   homepage:
     container_name: homepage
     image: ghcr.io/gethomepage/homepage:latest
+    labels:
+      - homepage.group=Apps
+      - homepage.name=Homepage
+      - homepage.icon=homepage.png
+      - homepage.href=http://192.168.100.127:3003
+      - homepage.description=Dashboard
     ports:
       - "3003:3000"
     volumes:
@@ -14,6 +20,12 @@ services:
   actualbudget:
     container_name: actualbudget
     image: docker.io/actualbudget/actual-server:latest
+    labels:
+      - homepage.group=Apps
+      - homepage.name=Actual Budget
+      - homepage.icon=actual-budget.png
+      - homepage.href=http://192.168.100.127:5006
+      - homepage.description=Personal finance
     ports:
       - "5006:5006"
     volumes:

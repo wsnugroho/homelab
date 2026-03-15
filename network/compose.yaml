@@ -2,6 +2,12 @@ services:
   adguardhome:
     container_name: adguardhome
     image: adguard/adguardhome:latest
+    labels:
+      - homepage.group=Network
+      - homepage.name=AdGuard Home
+      - homepage.icon=adguard-home.png
+      - homepage.href=http://192.168.100.127:3000
+      - homepage.description=DNS and ad blocking
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -9,4 +15,17 @@ services:
     volumes:
       - ${NETWORK_DATA_ROOT:-/opt/homelab/network}/adguardhome/work:/opt/adguardhome/work
       - ${NETWORK_DATA_ROOT:-/opt/homelab/network}/adguardhome/conf:/opt/adguardhome/conf
+    restart: unless-stopped
+
+  cloudflared:
+    container_name: cloudflared
+    image: cloudflare/cloudflared:latest
+    labels:
+      - homepage.group=Network
+      - homepage.name=Cloudflared
+      - homepage.icon=cloudflare-zero-trust.png
+      - homepage.description=Cloudflare tunnel connector
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped

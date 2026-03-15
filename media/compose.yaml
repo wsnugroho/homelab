@@ -7,6 +7,12 @@ services:
   jellyfin:
     container_name: jellyfin
     image: lscr.io/linuxserver/jellyfin:latest
+    labels:
+      - homepage.group=Media
+      - homepage.name=Jellyfin
+      - homepage.icon=jellyfin.png
+      - homepage.href=http://192.168.100.127:8096
+      - homepage.description=Media server
     ports:
       - "8096:8096"
     environment: *media-env
@@ -19,6 +25,12 @@ services:
   jellyseerr:
     container_name: jellyseerr
     image: fallenbagel/jellyseerr:latest
+    labels:
+      - homepage.group=Media
+      - homepage.name=Jellyseerr
+      - homepage.icon=jellyseerr.png
+      - homepage.href=http://192.168.100.127:5055
+      - homepage.description=Media requests
     environment: *media-env
     volumes:
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/jellyseerr:/app/config
@@ -29,6 +41,12 @@ services:
   stash:
     container_name: stash
     image: stashapp/stash:latest
+    labels:
+      - homepage.group=Media
+      - homepage.name=Stash
+      - homepage.icon=stash.png
+      - homepage.href=http://192.168.100.127:9999
+      - homepage.description=Metadata and media library
     ports:
       - "9999:9999"
     environment:
@@ -51,6 +69,12 @@ services:
   radarr:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:latest
+    labels:
+      - homepage.group=Media
+      - homepage.name=Radarr
+      - homepage.icon=radarr.png
+      - homepage.href=http://192.168.100.127:7878
+      - homepage.description=Movie management
     environment: *media-env
     volumes:
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/radarr:/config
@@ -63,6 +87,12 @@ services:
   sonarr:
     container_name: sonarr
     image: lscr.io/linuxserver/sonarr:latest
+    labels:
+      - homepage.group=Media
+      - homepage.name=Sonarr
+      - homepage.icon=sonarr.png
+      - homepage.href=http://192.168.100.127:8989
+      - homepage.description=Series management
     environment: *media-env
     volumes:
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/sonarr:/config
@@ -75,6 +105,12 @@ services:
   whisparr:
     container_name: whisparr
     image: ghcr.io/hotio/whisparr:v3
+    labels:
+      - homepage.group=Media
+      - homepage.name=Whisparr
+      - homepage.icon=whisparr.png
+      - homepage.href=http://192.168.100.127:6969
+      - homepage.description=Adult library management
     environment: *media-env
     volumes:
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/whisparr:/config
@@ -87,6 +123,12 @@ services:
   bazarr:
     container_name: bazarr
     image: lscr.io/linuxserver/bazarr:latest
+    labels:
+      - homepage.group=Media
+      - homepage.name=Bazarr
+      - homepage.icon=bazarr.png
+      - homepage.href=http://192.168.100.127:6767
+      - homepage.description=Subtitle management
     environment: *media-env
     volumes:
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/bazarr:/config
@@ -99,6 +141,12 @@ services:
   prowlarr:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
+    labels:
+      - homepage.group=Media
+      - homepage.name=Prowlarr
+      - homepage.icon=prowlarr.png
+      - homepage.href=http://192.168.100.127:9696
+      - homepage.description=Indexer management
     environment: *media-env
     volumes:
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/prowlarr:/config
@@ -109,6 +157,11 @@ services:
   flaresolverr:
     container_name: flaresolverr
     image: ghcr.io/flaresolverr/flaresolverr:latest
+    labels:
+      - homepage.group=Media
+      - homepage.name=FlareSolverr
+      - homepage.icon=flaresolverr.png
+      - homepage.description=Anti-bot solver
     environment: *media-env
     ports:
       - "8191:8191"
@@ -117,6 +170,12 @@ services:
   profilarr:
     container_name: profilarr
     image: santiagosayshey/profilarr:latest
+    labels:
+      - homepage.group=Media
+      - homepage.name=Profilarr
+      - homepage.icon=mdi-tune
+      - homepage.href=http://192.168.100.127:6868
+      - homepage.description=Profile sync
     environment: *media-env
     ports:
       - "6868:6868"
@@ -126,6 +185,12 @@ services:
 
   decypharr:
     container_name: decypharr
+    labels:
+      - homepage.group=Media
+      - homepage.name=Decypharr
+      - homepage.icon=mdi-magnet
+      - homepage.href=http://192.168.100.127:8282
+      - homepage.description=Debrid bridge
     # Use this images for torbox permalink support until MR is merged
     # https://github.com/sirrobot01/decypharr/pull/183
     image: ghcr.io/akhanalcs/decypharr:latest
