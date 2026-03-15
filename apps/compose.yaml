@@ -3,7 +3,7 @@ services:
     container_name: homepage
     image: ghcr.io/gethomepage/homepage:latest
     ports:
-      - "3000:3000"
+      - "3003:3000"
     volumes:
       - ${APPS_DATA_ROOT:-/opt/homelab/apps}/homepage:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro

@@ -12,9 +12,9 @@ Persistent data is stored in bind-mounted host paths, so backup remains a normal
 
 | Stack | Purpose | Main services |
 | --- | --- | --- |
-| `network` | network infrastructure | `adguardhome` |
+| `network` | network infrastructure | `adguardhome`, `cloudflared` |
 | `apps` | general apps | `homepage`, `actualbudget` |
-| `media` | end-to-end media pipeline | `jellyfin`, `jellyseerr`, `radarr`, `sonarr`, `whisparr`, `bazarr`, `prowlarr`, `flaresolverr`, `profilarr`, `decypharr`, `stash` |
+| `media` | end-to-end media pipeline | `jellyfin`, `jellyseerr`, `radarr`, `sonarr`, `whisparr`, `bazarr`, `prowlarr`, `flaresolverr`, `configarr`, `decypharr`, `stash` |
 
 ## Recommended order
 
@@ -43,5 +43,13 @@ These host paths replace Docker-managed volumes for app state.
 ## Notes
 
 - `adguardhome` is the current network stack seed and can be expanded later with proxy, VPN, or other DNS services.
+- `cloudflared` in this repo is only for Tunnel. It is not used as a DNS-over-HTTPS proxy.
+- To make `prowlarr` use DoH, configure AdGuard Home upstream DNS to a DoH endpoint such as `https://dns.cloudflare.com/dns-query`, then point `ADGUARD_DNS_IP` in `.env` to the host IP serving AdGuard on port `53`.
+- `cloudflared` runs as a token-managed tunnel. Route the public hostname to `http://host.docker.internal:3000` if you want to expose the webhook service currently listening on host port `3000`.
+- Your webhook paths stay the same behind that hostname:
+- `https://<your-hostname>/api/git/stacks/7/webhook`
+- `https://<your-hostname>/api/git/stacks/8/webhook`
+- `configarr` replaces `profilarr` here as a job-style config sync tool. It does not expose a web UI; run it on demand with `docker compose -f media/compose.yaml run --rm configarr`.
+- Put your active `config.yml` under `${MEDIA_DATA_ROOT}/configarr/config/config.yml`. A starter example is in `media/configarr/config.example.yml`.
 - Nothing under app state needs to live inside the Git repo.
-- `stash` still uses direct host paths under `/opt/apps/stash`; it has not yet been moved to `${MEDIA_DATA_ROOT}` like the other media services.
+- `stash` now follows `${MEDIA_DATA_ROOT}` like the other media services.

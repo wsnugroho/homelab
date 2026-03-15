@@ -130,6 +130,7 @@ services:
     # https://github.com/sirrobot01/decypharr/pull/183
     image: ghcr.io/akhanalcs/decypharr:latest
     # image: cy01/blackhole:latest
+    environment: *media-env
     cap_add:
       - SYS_ADMIN
     devices:
