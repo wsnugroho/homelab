@@ -122,7 +122,7 @@ services:
 
   whisparr-jav:
     container_name: whisparr-jav
-    image: ghcr.io/hotio/whisparr:latest
+    image: ghcr.io/hotio/whisparr:v2-develop
     labels:
       - homepage.group=Media
       - homepage.name=WhisparrJAV
