@@ -120,6 +120,24 @@ services:
       - "6969:6969"
     restart: unless-stopped
 
+  whisparr-jav:
+    container_name: whisparr-jav
+    image: ghcr.io/hotio/whisparr:latest
+    labels:
+      - homepage.group=Media
+      - homepage.name=WhisparrJAV
+      - homepage.icon=whisparr.png
+      - homepage.href=http://192.168.100.127:7070
+      - homepage.description=Adult library management
+    environment: *media-env
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/whisparr-jav:/config
+      - /data:/data
+      - /mnt:/mnt:rshared
+    ports:
+      - "7070:6969"
+    restart: unless-stopped
+
   bazarr:
     container_name: bazarr
     image: lscr.io/linuxserver/bazarr:latest
