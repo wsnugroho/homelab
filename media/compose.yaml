@@ -22,18 +22,18 @@ services:
       - /data/media:/data
     restart: unless-stopped
 
-  jellyseerr:
-    container_name: jellyseerr
+  seerr:
+    container_name: seerr
     image: fallenbagel/jellyseerr:latest
     labels:
       - homepage.group=Media
-      - homepage.name=Jellyseerr
+      - homepage.name=Seerr
       - homepage.icon=jellyseerr.png
       - homepage.href=http://192.168.100.127:5055
       - homepage.description=Media requests
     environment: *media-env
     volumes:
-      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/jellyseerr:/app/config
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/seerr:/app/config
     ports:
       - "5055:5055"
     restart: unless-stopped
