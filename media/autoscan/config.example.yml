@@ -1,0 +1,23 @@
+# Keep this low so imports trigger near-immediate Jellyfin scans.
+minimum-age: 5s
+scan-delay: 5s
+scan-stats: 1m
+
+port: 3030
+
+triggers:
+  radarr:
+    - name: radarr
+      priority: 5
+
+  sonarr:
+    - name: sonarr
+      priority: 5
+
+targets:
+  jellyfin:
+    - url: http://jellyfin:8096
+      token: REPLACE_WITH_YOUR_JELLYFIN_API_TOKEN
+      rewrite:
+        - from: ^/data/media/
+          to: /data/

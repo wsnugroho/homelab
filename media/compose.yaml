@@ -7,6 +7,8 @@ services:
   jellyfin:
     container_name: jellyfin
     image: lscr.io/linuxserver/jellyfin:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=Jellyfin
@@ -25,6 +27,8 @@ services:
   seerr:
     container_name: seerr
     image: fallenbagel/jellyseerr:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=Seerr
@@ -41,6 +45,8 @@ services:
   stash:
     container_name: stash
     image: stashapp/stash:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=Stash
@@ -69,6 +75,8 @@ services:
   radarr:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=Radarr
@@ -87,6 +95,8 @@ services:
   sonarr:
     container_name: sonarr
     image: lscr.io/linuxserver/sonarr:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=Sonarr
@@ -105,6 +115,8 @@ services:
   whisparr:
     container_name: whisparr
     image: ghcr.io/hotio/whisparr:v3
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=Whisparr
@@ -123,6 +135,8 @@ services:
   whisparr-jav:
     container_name: whisparr-jav
     image: ghcr.io/hotio/whisparr:v2-develop
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=WhisparrJAV
@@ -141,6 +155,8 @@ services:
   bazarr:
     container_name: bazarr
     image: lscr.io/linuxserver/bazarr:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=Bazarr
@@ -159,6 +175,8 @@ services:
   prowlarr:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=Prowlarr
@@ -175,6 +193,8 @@ services:
   flaresolverr:
     container_name: flaresolverr
     image: ghcr.io/flaresolverr/flaresolverr:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=FlareSolverr
@@ -185,9 +205,34 @@ services:
       - "8191:8191"
     restart: unless-stopped
 
+  autoscan:
+    container_name: autoscan
+    image: cloudb0x/autoscan:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
+    labels:
+      - homepage.group=Media
+      - homepage.name=Autoscan
+      - homepage.icon=mdi-radar
+      - homepage.href=http://192.168.100.127:3030/triggers/manual
+      - homepage.description=Instant Jellyfin scan webhook
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-Asia/Jakarta}
+      AUTOSCAN_VERBOSITY: "0"
+    ports:
+      - "3030:3030"
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/autoscan:/config
+      - /data:/data:ro
+    restart: unless-stopped
+
   profilarr:
     container_name: profilarr
     image: santiagosayshey/profilarr:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=Profilarr
@@ -203,6 +248,8 @@ services:
 
   decypharr:
     container_name: decypharr
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
       - homepage.name=Decypharr

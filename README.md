@@ -14,7 +14,7 @@ Persistent data is stored in bind-mounted host paths, so backup remains a normal
 | --- | --- | --- |
 | `network` | network infrastructure | `adguardhome`, `cloudflared` |
 | `apps` | general apps | `homepage`, `actualbudget` |
-| `media` | end-to-end media pipeline | `jellyfin`, `jellyseerr`, `radarr`, `sonarr`, `whisparr`, `bazarr`, `prowlarr`, `flaresolverr`, `configarr`, `decypharr`, `stash` |
+| `media` | end-to-end media pipeline | `jellyfin`, `seerr`, `radarr`, `sonarr`, `whisparr`, `bazarr`, `prowlarr`, `flaresolverr`, `autoscan`, `configarr`, `decypharr`, `stash` |
 
 ## Recommended order
 
@@ -49,6 +49,7 @@ These host paths replace Docker-managed volumes for app state.
 - Your webhook paths stay the same behind that hostname:
 - `https://<your-hostname>/api/git/stacks/7/webhook`
 - `https://<your-hostname>/api/git/stacks/8/webhook`
+- `autoscan` is installed as an optional near-real-time scan bridge for Jellyfin. Put your active config at `${MEDIA_DATA_ROOT}/autoscan/config.yml`; a starter example is in `media/autoscan/config.example.yml`.
 - `configarr` replaces `profilarr` here as a job-style config sync tool. It does not expose a web UI; run it on demand with `docker compose -f media/compose.yaml run --rm configarr`.
 - Put your active `config.yml` under `${MEDIA_DATA_ROOT}/configarr/config/config.yml`. A starter example is in `media/configarr/config.example.yml`.
 - Nothing under app state needs to live inside the Git repo.

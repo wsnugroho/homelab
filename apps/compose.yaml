@@ -2,6 +2,8 @@ services:
   homepage:
     container_name: homepage
     image: ghcr.io/gethomepage/homepage:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Apps
       - homepage.name=Homepage
@@ -20,6 +22,8 @@ services:
   actualbudget:
     container_name: actualbudget
     image: docker.io/actualbudget/actual-server:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Apps
       - homepage.name=Actual Budget
