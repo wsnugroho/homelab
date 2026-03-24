@@ -36,7 +36,6 @@ services:
       - homepage.icon=jellyseerr.png
       - homepage.href=http://192.168.100.127:5055
       - homepage.description=Media requests
-    environment: *media-env
     volumes:
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/seerr:/app/config
     ports:
