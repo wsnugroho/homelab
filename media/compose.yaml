@@ -211,26 +211,29 @@ services:
       - "8191:8191"
     restart: unless-stopped
 
-  autoscan:
-    container_name: autoscan
-    image: cloudb0x/autoscan:latest
+  autopulse:
+    container_name: autopulse
+    image: ghcr.io/dan-online/autopulse:stable
     dns:
       - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
       - homepage.group=Media
-      - homepage.name=Autoscan
+      - homepage.name=Autopulse
       - homepage.icon=mdi-radar
-      - homepage.href=http://192.168.100.127:3030/triggers/manual
-      - homepage.description=Instant Jellyfin scan webhook
+      - homepage.href=http://192.168.100.127:2875
+      - homepage.description=Instant Jellyfin update webhook
     environment:
-      PUID: ${PUID:-1000}
-      PGID: ${PGID:-1000}
-      TZ: ${TZ:-Asia/Jakarta}
-      AUTOSCAN_VERBOSITY: "0"
+      <<: *media-env
+      AUTOPULSE__APP__HOSTNAME: 0.0.0.0
+      AUTOPULSE__APP__PORT: "2875"
+      AUTOPULSE__APP__DATABASE_URL: sqlite:///config/autopulse.db
+      AUTOPULSE__AUTH__USERNAME: ${AUTOPULSE_AUTH_USERNAME:-admin}
+      AUTOPULSE__AUTH__PASSWORD: ${AUTOPULSE_AUTH_PASSWORD:-change-me}
     ports:
-      - "3030:3030"
+      - "2875:2875"
     volumes:
-      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/autoscan:/config
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/autopulse/config:/app
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/autopulse/data:/config
       - /data:/data:ro
     restart: unless-stopped
 

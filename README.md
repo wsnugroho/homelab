@@ -14,7 +14,7 @@ Persistent data is stored in bind-mounted host paths, so backup remains a normal
 | --- | --- | --- |
 | `network` | network infrastructure | `adguardhome`, `cloudflared` |
 | `apps` | general apps | `homepage`, `actualbudget` |
-| `media` | end-to-end media pipeline | `jellyfin`, `seerr`, `radarr`, `sonarr`, `whisparr`, `bazarr`, `prowlarr`, `flaresolverr`, `autoscan`, `configarr`, `decypharr`, `stash` |
+| `media` | end-to-end media pipeline | `jellyfin`, `seerr`, `radarr`, `sonarr`, `whisparr`, `bazarr`, `prowlarr`, `flaresolverr`, `autopulse`, `configarr`, `decypharr`, `stash` |
 
 ## Recommended order
 
@@ -49,7 +49,8 @@ These host paths replace Docker-managed volumes for app state.
 - Your webhook paths stay the same behind that hostname:
 - `https://<your-hostname>/api/git/stacks/7/webhook`
 - `https://<your-hostname>/api/git/stacks/8/webhook`
-- `autoscan` is installed as an optional near-real-time scan bridge for Jellyfin. Put your active config at `${MEDIA_DATA_ROOT}/autoscan/config.yml`; a starter example is in `media/autoscan/config.example.yml`.
+- `autopulse` replaces `autoscan` here. Put your active config at `${MEDIA_DATA_ROOT}/autopulse/config/config.toml`; a starter example is in `media/autopulse/config.example.toml`.
+- `autopulse` uses basic auth by default. Configure `AUTOPULSE_AUTH_USERNAME` and `AUTOPULSE_AUTH_PASSWORD` in `.env`, then use `http://<user>:<pass>@autopulse:2875/triggers/sonarr` and `http://<user>:<pass>@autopulse:2875/triggers/radarr` as your Arr webhook URLs.
 - `configarr` replaces `profilarr` here as a job-style config sync tool. It does not expose a web UI; run it on demand with `docker compose -f media/compose.yaml run --rm configarr`.
 - Put your active `config.yml` under `${MEDIA_DATA_ROOT}/configarr/config/config.yml`. A starter example is in `media/configarr/config.example.yml`.
 - Nothing under app state needs to live inside the Git repo.
