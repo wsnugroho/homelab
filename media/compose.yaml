@@ -26,7 +26,8 @@ services:
 
   seerr:
     container_name: seerr
-    image: fallenbagel/jellyseerr:latest
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
     dns:
       - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
@@ -40,6 +41,12 @@ services:
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/seerr:/app/config
     ports:
       - "5055:5055"
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
     restart: unless-stopped
 
   stash:
