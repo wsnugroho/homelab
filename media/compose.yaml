@@ -52,6 +52,7 @@ services:
     volumes:
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/plex/config:/config
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/plex/transcode:/transcode
+      - /mnt:/mnt:rshared
       - /data/media:/data
     restart: unless-stopped
 
