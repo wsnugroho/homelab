@@ -24,6 +24,37 @@ services:
       - /data/media:/data
     restart: unless-stopped
 
+  plex:
+    container_name: plex
+    image: lscr.io/linuxserver/plex:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
+    labels:
+      - homepage.group=Media
+      - homepage.name=Plex
+      - homepage.icon=plex.png
+      - homepage.href=http://192.168.100.127:32400/web
+      - homepage.description=Media server
+    environment:
+      <<: *media-env
+      VERSION: ${PLEX_VERSION:-docker}
+      PLEX_CLAIM: ${PLEX_CLAIM:-}
+    ports:
+      - "32400:32400"
+      - "1900:1900/udp"
+      - "5353:5353/udp"
+      - "8324:8324"
+      - "32410:32410/udp"
+      - "32412:32412/udp"
+      - "32413:32413/udp"
+      - "32414:32414/udp"
+      - "32469:32469"
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/plex/config:/config
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/plex/transcode:/transcode
+      - /data/media:/data
+    restart: unless-stopped
+
   seerr:
     container_name: seerr
     image: ghcr.io/seerr-team/seerr:latest
