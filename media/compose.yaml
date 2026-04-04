@@ -269,6 +269,27 @@ services:
       - /data:/data:ro
     restart: unless-stopped
 
+  agregarr:
+    container_name: agregarr
+    image: agregarr/agregarr:latest
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
+    labels:
+      - homepage.group=Media
+      - homepage.name=Agregarr
+      - homepage.icon=mdi-view-carousel
+      - homepage.href=http://192.168.100.127:7171
+      - homepage.description=Plex collections manager
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+    ports:
+      - "7171:7171"
+    volumes:
+      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/agregarr:/app/config
+      - /data/placeholders/movies:/data/movies
+      - /data/placeholders/shows:/data/shows
+    restart: unless-stopped
+
   profilarr:
     container_name: profilarr
     image: santiagosayshey/profilarr:latest
