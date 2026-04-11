@@ -4,25 +4,25 @@ x-media-env: &media-env
   TZ: ${TZ:-Asia/Jakarta}
 
 services:
-  jellyfin:
-    container_name: jellyfin
-    image: lscr.io/linuxserver/jellyfin:latest
-    dns:
-      - ${ADGUARD_DNS_IP:-192.168.100.127}
-    labels:
-      - homepage.group=Media
-      - homepage.name=Jellyfin
-      - homepage.icon=jellyfin.png
-      - homepage.href=http://192.168.100.127:8096
-      - homepage.description=Media server
-    ports:
-      - "8096:8096"
-    environment: *media-env
-    volumes:
-      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/jellyfin:/config
-      - /mnt:/mnt:rshared
-      - /data/media:/data
-    restart: unless-stopped
+  # jellyfin:
+  #   container_name: jellyfin
+  #   image: lscr.io/linuxserver/jellyfin:latest
+  #   dns:
+  #     - ${ADGUARD_DNS_IP:-192.168.100.127}
+  #   labels:
+  #     - homepage.group=Media
+  #     - homepage.name=Jellyfin
+  #     - homepage.icon=jellyfin.png
+  #     - homepage.href=http://192.168.100.127:8096
+  #     - homepage.description=Media server
+  #   ports:
+  #     - "8096:8096"
+  #   environment: *media-env
+  #   volumes:
+  #     - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/jellyfin:/config
+  #     - /mnt:/mnt:rshared
+  #     - /data/media:/data
+  #   restart: unless-stopped
 
   plex:
     container_name: plex
@@ -286,8 +286,8 @@ services:
       - "7171:7171"
     volumes:
       - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/agregarr:/app/config
-      - /data/placeholders/movies:/data/movies
-      - /data/placeholders/shows:/data/shows
+      - /data/media/placeholders/movies:/data/movies
+      - /data/media/placeholders/shows:/data/shows
     restart: unless-stopped
 
   profilarr:
