@@ -269,26 +269,26 @@ services:
       - /data:/data:ro
     restart: unless-stopped
 
-  agregarr:
-    container_name: agregarr
-    image: agregarr/agregarr:latest
-    dns:
-      - ${ADGUARD_DNS_IP:-192.168.100.127}
-    labels:
-      - homepage.group=Media
-      - homepage.name=Agregarr
-      - homepage.icon=mdi-view-carousel
-      - homepage.href=http://192.168.100.127:7171
-      - homepage.description=Plex collections manager
-    environment:
-      TZ: ${TZ:-Asia/Jakarta}
-    ports:
-      - "7171:7171"
-    volumes:
-      - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/agregarr:/app/config
-      - /data/media/placeholders/movies:/data/movies
-      - /data/media/placeholders/shows:/data/shows
-    restart: unless-stopped
+  # agregarr:
+  #   container_name: agregarr
+  #   image: agregarr/agregarr:latest
+  #   dns:
+  #     - ${ADGUARD_DNS_IP:-192.168.100.127}
+  #   labels:
+  #     - homepage.group=Media
+  #     - homepage.name=Agregarr
+  #     - homepage.icon=mdi-view-carousel
+  #     - homepage.href=http://192.168.100.127:7171
+  #     - homepage.description=Plex collections manager
+  #   environment:
+  #     TZ: ${TZ:-Asia/Jakarta}
+  #   ports:
+  #     - "7171:7171"
+  #   volumes:
+  #     - ${MEDIA_DATA_ROOT:-/opt/homelab/media}/agregarr:/app/config
+  #     - /data/media/placeholders/movies:/data/movies
+  #     - /data/media/placeholders/shows:/data/shows
+  #   restart: unless-stopped
 
   profilarr:
     container_name: profilarr
@@ -320,8 +320,8 @@ services:
       - homepage.description=Debrid bridge
     # Use this images for torbox permalink support until MR is merged
     # https://github.com/sirrobot01/decypharr/pull/183
-    image: ghcr.io/akhanalcs/decypharr:latest
-    # image: cy01/blackhole:latest
+    # image: ghcr.io/akhanalcs/decypharr:latest
+    image: cy01/blackhole:latest
     environment: *media-env
     cap_add:
       - SYS_ADMIN
