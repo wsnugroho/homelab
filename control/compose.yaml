@@ -1,0 +1,26 @@
+services:
+  doco-cd:
+    image: ghcr.io/kimdre/doco-cd:latest
+    container_name: doco-cd
+    ports:
+      - "80:80"
+      - "9120:9120"
+    environment:
+      TZ: Asia/Jakarta
+      GIT_ACCESS_TOKEN: xxx
+      WEBHOOK_SECRET: xxx
+    volumes:
+      - dococd-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD", "/doco-cd", "healthcheck"]
+      start_period: 15s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  dococd-data:

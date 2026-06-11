@@ -1,9 +1,7 @@
 services:
   homepage:
-    container_name: homepage
     image: ghcr.io/gethomepage/homepage:latest
-    dns:
-      - ${ADGUARD_DNS_IP:-192.168.100.127}
+    container_name: homepage
     labels:
       - homepage.group=Apps
       - homepage.name=Homepage
@@ -17,11 +15,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       HOMEPAGE_ALLOWED_HOSTS: "*"
+    dns:
+      - ${ADGUARD_DNS_IP:-192.168.100.127}
     restart: unless-stopped
 
   actualbudget:
-    container_name: actualbudget
     image: docker.io/actualbudget/actual-server:latest
+    container_name: actualbudget
     dns:
       - ${ADGUARD_DNS_IP:-192.168.100.127}
     labels:
