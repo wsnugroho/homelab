@@ -1,0 +1,7 @@
+[env]
+KUBECONFIG = "{{config_root}}/.kube/config"
+
+[tools]
+flux2 = "latest"
+kubectl = "latest"
+talosctl = "latest"
