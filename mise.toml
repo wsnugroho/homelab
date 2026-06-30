@@ -2,6 +2,8 @@
 KUBECONFIG = "{{config_root}}/.kube/config"
 
 [tools]
+age = "latest"
 flux2 = "latest"
 kubectl = "latest"
+sops = "latest"
 talosctl = "latest"
