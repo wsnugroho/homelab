@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: profilarr
-          image: santiagosayshey/profilarr:latest
+          image: ghcr.io/dictionarry-hub/profilarr:latest
           envFrom:
             - configMapRef:
                 name: media-env
