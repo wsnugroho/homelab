@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: decypharr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: decypharr
+  template:
+    metadata:
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/decypharr: unconfined
+      labels:
+        app.kubernetes.io/name: decypharr
+    spec:
+      containers:
+        - name: decypharr
+          image: cy01/blackhole:latest
+          envFrom:
+            - configMapRef:
+                name: media-env
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - SYS_ADMIN
+          ports:
+            - name: http
+              containerPort: 8282
+          volumeMounts:
+            - name: config
+              mountPath: /app
+            - name: fuse
+              mountPath: /dev/fuse
+            - name: data
+              mountPath: /data
+            - name: mnt
+              mountPath: /mnt
+              mountPropagation: Bidirectional
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: decypharr-config
+        - name: fuse
+          hostPath:
+            path: /dev/fuse
+            type: CharDevice
+        - name: data
+          hostPath:
+            path: /data
+            type: Directory
+        - name: mnt
+          hostPath:
+            path: /mnt
+            type: Directory

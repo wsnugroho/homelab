@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: seerr
+  annotations:
+    tailscale.com/hostname: seerr
+spec:
+  selector:
+    app.kubernetes.io/name: seerr
+  ports:
+    - name: http
+      port: 5055
+      targetPort: http

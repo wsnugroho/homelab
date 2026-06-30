@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bazarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bazarr
+    spec:
+      containers:
+        - name: bazarr
+          image: lscr.io/linuxserver/bazarr:latest
+          envFrom:
+            - configMapRef:
+                name: media-env
+          ports:
+            - name: http
+              containerPort: 6767
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: media
+              mountPath: /data/media
+            - name: mnt
+              mountPath: /mnt
+              mountPropagation: HostToContainer
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: bazarr-config
+        - name: media
+          hostPath:
+            path: /data/media
+            type: Directory
+        - name: mnt
+          hostPath:
+            path: /mnt
+            type: Directory
