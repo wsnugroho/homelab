@@ -1,0 +1,50 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tailnet-connect-game
+  namespace: default
+spec:
+  defaultBackend:
+    service:
+      name: tailnet-connect-game
+      port:
+        number: 80
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+        - tailnet-connect-game
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tailnet-connect-game
+  namespace: default
+spec:
+  selector:
+    app: tailnet-connect-game
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tailnet-connect-game
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tailnet-connect-game
+  template:
+    metadata:
+      labels:
+        app: tailnet-connect-game
+    spec:
+      containers:
+        - name: tailnet-connect
+          image: tailscale/tailnet-connect-game:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
