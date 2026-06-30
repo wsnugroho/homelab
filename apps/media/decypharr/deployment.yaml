@@ -16,6 +16,13 @@ spec:
       labels:
         app.kubernetes.io/name: decypharr
     spec:
+      # Disable automatic Service environment variables (e.g. DECYPHARR_PORT=tcp://...)
+      # Decypharr incorrectly reads the injected *_PORT variable after the configuration
+      # wizard, causing the HTTP server to bind to ":tcp://<cluster-ip>:8282" and fail with:
+      # "listen tcp: address :tcp://...: too many colons in address".
+      #
+      # Service discovery uses Kubernetes DNS instead, so service links are unnecessary.
+      enableServiceLinks: false
       containers:
         - name: decypharr
           image: cy01/blackhole:latest
