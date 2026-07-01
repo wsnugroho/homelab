@@ -13,7 +13,7 @@ spec:
   wait: true
   timeout: 5m0s
   dependsOn:
-    - name: infrastructure-controllers
+    - name: infrastructure-config
   decryption:
     provider: sops
     secretRef:

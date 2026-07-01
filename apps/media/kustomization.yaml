@@ -32,3 +32,6 @@ patches:
       - op: add
         path: /spec/loadBalancerClass
         value: tailscale
+      - op: add
+        path: /metadata/annotations/tailscale.com~1proxy-group
+        value: homelab-ingress
