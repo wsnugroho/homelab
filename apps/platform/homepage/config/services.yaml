@@ -44,6 +44,6 @@
         widget:
           type: proxmox
           url: https://172.16.1.1:8006
-          username: ${HOMEPAGE_PROXMOX_TOKEN}
-          password: ${HOMEPAGE_PROXMOX_SECRET}
+          username: '{{HOMEPAGE_VAR_PROXMOX_TOKEN}}'
+          password: '{{HOMEPAGE_VAR_PROXMOX_SECRET}}'
           node: pvelabs
