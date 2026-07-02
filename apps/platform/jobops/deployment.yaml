@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobops
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jobops
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jobops
+    spec:
+      containers:
+        - name: jobops
+          image: ghcr.io/dakheera47/job-ops:v0.10.0
+          ports:
+            - name: http
+              containerPort: 3001
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: jobops-data

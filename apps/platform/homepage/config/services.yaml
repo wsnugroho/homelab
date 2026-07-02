@@ -50,3 +50,6 @@
     - BentoPDF:
         href: http://bentopdf:80
         description: Browser-based PDF editing tool
+    - Jobops:
+        href: http://jobops:3001
+        description: Personal job application tracker

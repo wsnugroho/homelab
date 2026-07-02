@@ -5,6 +5,7 @@ resources:
   - namespace.yaml
   - homepage
   - bentopdf
+  - jobops
 configMapGenerator:
   - name: platform-env
     literals:
