@@ -4,6 +4,7 @@ namespace: platform
 resources:
   - namespace.yaml
   - homepage
+  - bentopdf
 configMapGenerator:
   - name: platform-env
     literals:
