@@ -48,7 +48,7 @@
           password: '{{HOMEPAGE_VAR_PROXMOX_SECRET}}'
           node: pvelabs
     - BentoPDF:
-        href: http://bentopdf:80
+        href: http://bentopdf:8080
         description: Browser-based PDF editing tool
     - Jobops:
         href: http://jobops:3001
