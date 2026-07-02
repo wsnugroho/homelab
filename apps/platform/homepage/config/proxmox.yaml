@@ -1,0 +1,5 @@
+---
+pvelabs:
+  url: https://172.16.1.1:8006
+  token: ${HOMEPAGE_PROXMOX_TOKEN}
+  secret: ${HOMEPAGE_PROXMOX_SECRET}
