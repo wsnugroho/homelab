@@ -1,0 +1,11 @@
+---
+title: "Homelab Dashboard"
+description: "Central dashboard for homelab services"
+theme: dark
+color: slate
+hideVersion: false
+disableUpdateCheck: false
+headerStyle: underlined
+statusStyle: dot
+language: en
+target: _blank
