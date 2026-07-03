@@ -5,6 +5,7 @@ resources:
   - secret.yaml
   - deployment.yaml
   - service.yaml
+  - ingress.yaml
 configMapGenerator:
   - name: homepage-config
     files:

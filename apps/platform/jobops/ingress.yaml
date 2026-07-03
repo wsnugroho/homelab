@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jobops
+  annotations:
+    tailscale.com/proxy-group: homelab-ingress
+spec:
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+        - jobops
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jobops
+                port:
+                  name: http

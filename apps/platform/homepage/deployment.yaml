@@ -44,7 +44,7 @@ spec:
                 fieldRef:
                   fieldPath: status.podIP
             - name: HOMEPAGE_ALLOWED_HOSTS
-              value: homepage:3000,$(MY_POD_IP):3000
+              value: homepage.orca-fort.ts.net,homepage:3000,$(MY_POD_IP):3000
           ports:
             - name: http
               containerPort: 3000

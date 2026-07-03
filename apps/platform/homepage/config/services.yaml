@@ -2,39 +2,35 @@
 - Media:
     - Jellyfin:
         icon: jellyfin.png
-        href: http://jellyfin:8096
+        href: https://jellyfin.orca-fort.ts.net
         description: Media streaming server
     - Seerr:
         icon: overseerr.png
-        href: http://seerr:5055
+        href: https://seerr.orca-fort.ts.net
         description: Media request management
     - Radarr:
         icon: radarr.png
-        href: http://radarr:7878
+        href: https://radarr.orca-fort.ts.net
         description: Movie collection manager
     - Sonarr:
         icon: sonarr.png
-        href: http://sonarr:8989
+        href: https://sonarr.orca-fort.ts.net
         description: TV series manager
     - Bazarr:
         icon: bazarr.png
-        href: http://bazarr:6767
+        href: https://bazarr.orca-fort.ts.net
         description: Subtitle manager
     - Prowlarr:
         icon: prowlarr.png
-        href: http://prowlarr:9696
+        href: https://prowlarr.orca-fort.ts.net
         description: Indexer manager
-    - Flaresolverr:
-        icon: flaresolverr.png
-        href: http://flaresolverr:8191
-        description: Cloudflare bypass proxy
     - Profilarr:
         icon: profilarr.png
-        href: http://profilarr:6868
+        href: https://profilarr.orca-fort.ts.net
         description: Profile management
     - Decypharr:
         icon: decypharr.png
-        href: http://decypharr:8282
+        href: https://decypharr.orca-fort.ts.net
         description: Decryption utility
 - Platform:
     - Proxmox:
@@ -48,8 +44,8 @@
           password: '{{HOMEPAGE_VAR_PROXMOX_SECRET}}'
           node: pvelabs
     - BentoPDF:
-        href: http://bentopdf:8080
+        href: https://bentopdf.orca-fort.ts.net
         description: Browser-based PDF editing tool
     - Jobops:
-        href: http://jobops:3001
+        href: https://jobops.orca-fort.ts.net
         description: Personal job application tracker
