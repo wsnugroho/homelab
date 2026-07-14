@@ -17,6 +17,9 @@ spec:
       containers:
         - name: profilarr
           image: ghcr.io/dictionarry-hub/profilarr:latest
+          env:
+            - name: ORIGIN
+              value: https://profilarr.orca-fort.ts.net
           envFrom:
             - configMapRef:
                 name: media-env
